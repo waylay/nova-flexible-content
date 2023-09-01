@@ -27,7 +27,8 @@
                     window.parent.postMessage('${flexible_key}', '*');
                 });
                 </script>
-                <script src='//unpkg.com/alpinejs' defer></script> 
+                <script src='//unpkg.com/alpinejs' defer></script>
+                <script src='/js/themes/ebod.js' defer></script>
             </head>
             <body class='w-screen overflow-hidden'>
                 ${ initialPreviewHtml }
@@ -76,7 +77,7 @@ export default {
                 this.setIframeScaleThenHeight();
             },
             false
-        );    
+        );
     },
 
     watch: {
@@ -100,17 +101,17 @@ export default {
                 this.setIframeHeight();
             });
         },
-    
+
         setIframeScale() {
                 let width = Math.min(window.innerWidth, 1800);
                 let unroundedScale = this.$refs.iframe.parentNode.clientWidth / width;
                 this.scale = Math.floor(unroundedScale * 1000)/1000;
                 this.iframeWidth = width;
         },
-        
+
         setIframeHeight() {
                 this.iframeHeight =
-                    this.$refs.iframe.contentWindow.document.body.clientHeight;                    
+                    this.$refs.iframe.contentWindow.document.body.clientHeight;
                 this.iframeParentHeight =
                     this.iframeHeight * this.scale;
         },

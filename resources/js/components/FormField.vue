@@ -6,19 +6,19 @@
         :errors="errors"
         :show-help-text="showHelpText"
         full-width-content
-        class="relative"    
+        class="relative"
         @keyup.escape="selectGroup(null)">
         <template #field>
 
             <div :class="{
                 '-mx-8 -mt-6' : currentField.enablePreview && !fullScreen,
                 'fixed inset-0 bg-gray-50 z-50 flex flex-col' : fullScreen
-    
+
                 }">
                 <div v-if="fullScreen" class="px-4 py-2 z-20 bg-white border-b text-center">
                     <button class="shadow relative bg-primary-500 hover:bg-primary-400 text-white dark:text-gray-900 cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-3" @click="selectGroup(null)">Exit full screen mode</button>
                 </div>
-                <div ref="flexibleFieldContainer"                
+                <div ref="flexibleFieldContainer"
                 :class="{
                     'mb-4' : currentField.enablePreview && !fullScreen,
                     'flex-grow overflow-y-auto ml-sidebar border-l' : currentField.enablePreview && fullScreen
@@ -38,12 +38,12 @@
                         :mode="mode"
                         :selectedGroup="selectedGroupKey == group.key"
                         :full-screen="fullScreen"
-                        
+
                         @move-up="moveUp(group.key)"
                         @move-down="moveDown(group.key)"
                         @remove="remove(group.key)"
                         @group-selected="selectGroup(group.key, $event)"
-                    />            
+                    />
                 </div>
 
                 <component
@@ -84,7 +84,7 @@ export default {
         layouts() {
             return this.currentField.layouts || false
         },
-        
+
         orderedGroups() {
             return this.order.reduce((groups, key) => {
                 groups.push(this.groups[key]);
@@ -170,7 +170,7 @@ export default {
 
             this.populateGroups();
             this.$nextTick(this.initSortable.bind(this));
-            
+
         },
 
         /**
@@ -274,8 +274,22 @@ export default {
                 group = new Group(layout.name, layout.title, fields, this.currentField, key, layout.preview, collapsed);
 
             this.groups[group.key] = group;
-            this.order.push(group.key);
-            
+
+
+            if(this.order.length > 1) {
+                if('banner' === layout.name) {
+                    this.order.unshift(group.key);
+                } else if('footer' === layout.name) {
+                    this.order.push(group.key);
+                } else {
+                    this.order.splice(this.order.length - 1, 0, group.key).join();
+                }
+            } else {
+                this.order.push(group.key);
+                console.log(layout.name)
+            }
+
+
             if(this.fullScreen) {
                 this.selectedGroupKey = group.key;
                 this.$nextTick(() => {
@@ -290,7 +304,7 @@ export default {
         moveUp(key) {
             let index = this.order.indexOf(key);
 
-            if(index <= 0) return;
+            if(index <= 1) return;
 
             this.order.splice(index - 1, 0, this.order.splice(index, 1)[0]);
         },
@@ -301,7 +315,7 @@ export default {
         moveDown(key) {
             let index = this.order.indexOf(key);
 
-            if(index < 0 || index >= this.order.length - 1) return;
+            if(index < 0 || index >= this.order.length - 2) return;
 
             this.order.splice(index + 1, 0, this.order.splice(index, 1)[0]);
         },
@@ -354,7 +368,17 @@ export default {
 
 <style>
 .ml-sidebar {
-    margin-left: 20%;
+    margin-left: 33.333%;
+}
+@media (min-width: 1024px){
+    .ml-sidebar {
+        margin-left: 25%;
+    }
+}
+@media (min-width: 1280px){
+    .ml-sidebar {
+        margin-left: 20%;
+    }
 }
 
 .-mt-5 {

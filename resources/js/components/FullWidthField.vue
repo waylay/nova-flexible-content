@@ -1,6 +1,6 @@
 <template>
     <field-wrapper>
-        <div class="py-6 px-8 w-full">
+        <div class="py-2 px-8 w-full">
             <div class="mb-6" v-if="fieldLabel">
                 <form-label :for="field.attribute" :class="{
                       'mb-2': field.helpText && showHelpText

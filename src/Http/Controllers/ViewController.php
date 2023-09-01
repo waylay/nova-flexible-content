@@ -9,6 +9,8 @@ use Illuminate\Support\Arr;
 
 class ViewController extends NovaActionController
 {
+    protected $theme = 'ebod';
+
     public function __invoke(
         NovaRequest $request,
         $resource,
@@ -71,7 +73,7 @@ class ViewController extends NovaActionController
         }
 
         return response()->json([
-            "view" => view("flexible." . $layoutName, [
+            "view" => view("sites.templates." . $this->theme . ".blocks." . $layoutName, [
                 "layout" => (object) $layout,
             ])->render(),
 

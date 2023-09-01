@@ -17,7 +17,7 @@
             :validation-errors="null"
             :class="{ 'remove-bottom-border': index == group.fields.length - 1 }"
         />
-    </div>    
+    </div>
     <preview-iframe v-else-if="initialPreviewHtml" :stylesheet="previewStylesheet" :flexible_key="group.key" :initialPreviewHtml="initialPreviewHtml" :updatedPreviewHtml="updatedPreviewHtml" />
 </template>
 

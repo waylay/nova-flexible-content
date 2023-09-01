@@ -39,10 +39,10 @@
         </div>
         <div
             v-show="selectedGroup"
-            class="absolute pt-4 top-0 left-0 md:w-1/5 bottom-0 h-full bg-gray-50 overflow-y-scroll self-stretch"
+            class="absolute pt-4 top-0 left-0 md:w-1/3 lg:w-1/4 xl:w-1/5 bottom-0 h-full bg-gray-50 overflow-y-scroll self-stretch"
         >
             <div class="w-full py-5">
-                <div class="px-6 py-6 gap-2 flex flex-row items-center">
+                <div class="px-6 pt-8 pb-4 gap-2 flex flex-row items-center">
                     <button
                         :aria-label="`Close ${title}`"
                         @click.prevent="$emit('group-selected')"
@@ -54,7 +54,7 @@
                             height="36"
                         />
                     </button>
-                    <h3 class="font-semibold">{{ title }}</h3>
+                    <h3 class="font-semibold text-2xl ">{{ title }}</h3>
                 </div>
 
                 <div
@@ -71,6 +71,7 @@
                             fullWidthContent="true"
                             @input="onInput($event, item)"
                             @change="onInput($event, item)"
+                            @click="onInput($event, item)"
                             :field="item"
                             :errors="errors"
                             :mode="mode"
@@ -207,10 +208,10 @@ export default {
                     this.form = new FormData();
                     this.form.append("__key", this.flexible_key);
                     this.fields.forEach((field) => {
-                        if(json.data[field.attribute] && typeof(json.data[field.attribute]) == 'object') {   
+                        if(json.data[field.attribute] && typeof(json.data[field.attribute]) == 'object') {
                             json.data[field.attribute] = JSON.stringify(json.data[field.attribute]);
                         }
-                        
+
                         this.form.set(
                             field.attribute,
                             json.data[field.attribute] ?? ""
@@ -247,12 +248,16 @@ export default {
 
 .fields .md\:px-8,
 .fields .px-8 {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
-
+.fields .md\:py-6,
+.fields .py-6 {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
 .fields label {
-    /* font-weight: bold; */
+    font-weight: bold;
 }
 
 .fields label .flex {

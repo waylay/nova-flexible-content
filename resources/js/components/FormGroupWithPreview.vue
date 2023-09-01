@@ -4,7 +4,7 @@
         :id="group.key">
         <div class="w-full relative">
             <div :class="{'group-hover:block hidden': !selectedGroup} "  class="absolute bg-white box-content flex h-8 items-center leading-normal overflow-hidden right-0 rounded-bl-lg shadow top-0 z-20">
-            
+
                 <div class="flex" v-if="!readonly">
                     <button
                         dusk="drag-group"
@@ -50,17 +50,17 @@
 
             </div>
         </div>
-           
-        <div 
-            v-if="!group.preview" 
+
+        <div
+            v-if="!group.preview"
             class="py-6 border-2"
             :class="{'border-primary-500 border-dashed' : selectedGroup, '  hover:border-gray-200 border-transparent' : !selectedGroup}">
 
 
-            <div v-show="fullScreen && selectedGroup" class="absolute top-0 left-0 md:w-1/5 bottom-0 h-full  bg-gray-50 overflow-y-scroll self-stretch">           
+            <div v-show="fullScreen && selectedGroup" class="absolute top-0 left-0 md:w-1/3 lg:w-1/4 xl:w-1/5 bottom-0 h-full  bg-gray-50 overflow-y-scroll self-stretch">
                 <div class="w-full py-5">
                     <div class="px-6 py-6 gap-2 flex flex-row items-center ">
-                        <button :aria-label="`Close ${ group.title }`" @click.prevent="$emit('group-selected')">    
+                        <button :aria-label="`Close ${ group.title }`" @click.prevent="$emit('group-selected')">
                             <icon type="arrow-left" class="align-top rounded-full hover:bg-gray-200 p-2" width="36" height="36" />
                         </button>
                         <h3 class="font-semibold">{{  group.title }}</h3>
@@ -79,7 +79,7 @@
                 :mode="mode"
                 :show-help-text="item.helpText != null"
             />
-        
+
         </div>
         <field-list-with-preview
             v-else
@@ -122,7 +122,7 @@ export default {
     data() {
         return {
             removeMessage: false,
-            readonly: this.group.readonly,
+            readonly: this.group.readonly || this.group.name === 'banner' || this.group.name === 'footer' ,
             storedScrollTop: 0
         };
     },
@@ -174,7 +174,7 @@ export default {
             }
         },
 
-       
+
     },
 }
 </script>

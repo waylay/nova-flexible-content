@@ -275,19 +275,18 @@ export default {
 
             this.groups[group.key] = group;
 
+            this.order.push(group.key);
 
-            if(this.order.length > 1) {
-                if('banner' === layout.name) {
-                    this.order.unshift(group.key);
-                } else if('footer' === layout.name) {
-                    this.order.push(group.key);
-                } else {
-                    this.order.splice(this.order.length - 1, 0, group.key).join();
-                }
-            } else {
-                this.order.push(group.key);
-                console.log(layout.name)
-            }
+
+            let bannerKey = this.getGroupKeyByName(this.groups, 'banner') ?? '';
+            let footerKey = this.getGroupKeyByName(this.groups, 'footer') ?? '';
+
+            // Make sure banner and footer are always on top and bottom
+            this.order = [
+                ...this.order.filter(flag => flag === bannerKey), // banner
+                ...this.order.filter(flag => (flag !== bannerKey && flag !== footerKey)), // else
+                ...this.order.filter(flag => flag === footerKey)  // footer
+            ];
 
 
             if(this.fullScreen) {
@@ -297,6 +296,11 @@ export default {
                 });
             }
         },
+
+        getGroupKeyByName(groups, name) {
+          return Object.keys(groups).find(key => groups[key]['name'] === name);
+        },
+
 
         /**
          * Move a group up

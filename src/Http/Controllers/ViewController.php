@@ -20,7 +20,8 @@ class ViewController extends NovaActionController
     ) {
         // No idea if this is right
         $novaResource = $request->resource();
-        $novaResource::authorizeToUpdate($request);
+
+        $request->findResource($resourceId)->authorizeToUpdate($request);
 
         // Find the layout. Is there a better way?
         $layout = $request

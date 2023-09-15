@@ -1,30 +1,32 @@
 <template>
     <field-wrapper v-if="field.visible">
-        <div class="py-2 px-8 w-full">
+        <div class="py-6 px-8 w-full" >
             <div class="mb-6" v-if="fieldLabel">
-                <form-label :for="field.attribute" :class="{
-                      'mb-2': field.helpText && showHelpText
-                  }">
+                <form-label
+                    :for="field.attribute"
+                    :class="{
+            'mb-2': field.helpText && showHelpText,
+          }"
+                >
                     {{ fieldLabel }}
 
                     <span v-if="field.required" class="text-danger text-sm">{{
-                        __('*')
-                    }}</span>
+            __("*")
+          }}</span>
                 </form-label>
 
-                <help-text v-if="showHelpText">
-                    {{ field.helpText }}
-                </help-text>
+                <HelpText
+                    class="help-text mt-2"
+                    v-if="showHelpText"
+                    v-html="field.helpText"
+                />
             </div>
 
-            <slot name="field"/>
+            <slot name="field" />
 
-            <help-text
-                class="error-text mt-2 text-danger"
-                v-if="showErrors && hasError"
-            >
+            <HelpText class="mt-2 help-text-error" v-if="showErrors && hasError">
                 {{ firstError }}
-            </help-text>
+            </HelpText>
         </div>
     </field-wrapper>
 </template>
@@ -39,17 +41,17 @@ export default {
         field: { type: Object, required: true },
         fieldName: { type: String },
         showErrors: { type: Boolean, default: true },
-        ...mapProps(['showHelpText']),
+        ...mapProps(["showHelpText"]),
     },
 
     computed: {
         fieldLabel() {
             // If the field name is purposefully empty, hide the label altogether
-            if (this.fieldName === '') {
+            if (this.fieldName === "") {
                 return false;
             }
 
-            return this.fieldName || this.field.singularLabel || this.field.name
+            return this.fieldName || this.field.singularLabel || this.field.name;
         },
     },
 };

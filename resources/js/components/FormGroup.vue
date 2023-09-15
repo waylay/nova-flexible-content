@@ -78,9 +78,11 @@
                     v-for="(item, index) in group.fields"
                     :key="index"
                     :is="'form-' + item.component"
+                    :ref="item.attribute"
                     :resource-name="resourceName"
                     :resource-id="resourceId"
                     :field="item"
+                    :form-unique-id="group.key"
                     :errors="errors"
                     :mode="mode"
                     :show-help-text="item.helpText != null"
@@ -139,6 +141,28 @@ export default {
             }
 
             return classes;
+        }
+    },
+
+    mounted() {
+        for (const ref in this.$refs) {
+            const currRef = this.$refs[ref];
+            if (Array.isArray(currRef) && currRef.length > 0) {
+                currRef.forEach((item, index) => {
+                    if (!(item.field.dependsOn == null)) {
+                        this.$watch(
+                            () => {
+                                return this.$refs[ref][index].syncedField;
+                            },
+                            (val) => {
+                                if (val.validationKey !== this.$refs[ref][index].validationKey) {
+                                    this.$refs[ref][index].syncedField.validationKey = this.$refs[ref][index].validationKey;
+                                }
+                            }
+                        );
+                    }
+                });
+            }
         }
     },
 

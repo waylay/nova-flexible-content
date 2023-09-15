@@ -442,15 +442,16 @@ class Layout implements LayoutInterface, JsonSerializable, ArrayAccess, Arrayabl
     {
         $method = 'get'.ucfirst($specificty).'Rules';
 
+        $field = $field->applyDependsOn($request); // Apply rules from DependsOn functions based on request
         $rules = call_user_func([$field, $method], $request);
 
-        return collect($rules)->mapWithKeys(function($validatorRules, $attribute) use ($key, $field, $request) {
-                $key = $request->isFileAttribute($attribute)
-                    ? $request->getFileAttribute($attribute)
-                    : $key.'.attributes.'.$attribute;
+        return  collect($rules)->mapWithKeys(function ($validatorRules, $attribute) use ($key, $field) {
+            $key = $key.'.attributes.'.$attribute;
 
-                return [$key => $this->wrapScopedFieldRules($field, $validatorRules)];
-            })->filter()->all();
+            return [$key => $this->wrapScopedFieldRules($field, $validatorRules)];
+        })
+            ->filter()
+            ->all();
     }
 
     /**

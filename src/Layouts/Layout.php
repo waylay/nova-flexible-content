@@ -442,6 +442,8 @@ class Layout implements LayoutInterface, JsonSerializable, ArrayAccess, Arrayabl
     {
         $method = 'get'.ucfirst($specificty).'Rules';
 
+        $field = $field->applyDependsOn($request);
+
         $rules = call_user_func([$field, $method], $request);
 
         return collect($rules)->mapWithKeys(function($validatorRules, $attribute) use ($key, $field, $request) {

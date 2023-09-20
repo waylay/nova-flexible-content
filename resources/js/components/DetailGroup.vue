@@ -52,7 +52,18 @@ export default {
                 this.form.set("__key", this.group.key);
                 this.form.set(field.attribute, ((typeof field.value === 'object' && field.value !== null) ?
                     JSON.stringify(field.value) : (field.value ?? '')));
-                });
+                if(field.fields) {
+                    field.fields.forEach((innerField) => {
+                        if(innerField.attribute && !this.form.has(innerField.attribute)) {
+                            this.form.set(innerField.attribute, innerField.value ? JSON.stringify(innerField.value) : "");
+                        }
+                    });
+                }
+
+            });
+
+
+
             this.getPreview();
         });
 

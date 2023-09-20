@@ -145,6 +145,13 @@ export default {
                     this.form.delete(field.attribute);
                     this.form.set(field.attribute, field.value ? JSON.stringify(field.value) : "");
                 }
+                if(field.fields) {
+                    field.fields.forEach((innerField) => {
+                        if(innerField.attribute && !this.form.has(innerField.attribute)) {
+                            this.form.set(innerField.attribute, innerField.value ? JSON.stringify(innerField.value) : "");
+                        }
+                    });
+                }
             });
             this.getPreview();
         });
@@ -190,6 +197,7 @@ export default {
         },
 
         getPreview() {
+
             fetch(
                 `/nova-vendor/flexible/view/${this.resourceName}/${this.resourceId}/${this.fieldName}/${this.layoutName}`,
                 {

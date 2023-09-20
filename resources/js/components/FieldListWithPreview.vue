@@ -39,7 +39,7 @@
         </div>
         <div
             v-show="selectedGroup"
-            class="absolute pt-4 top-0 left-0 md:w-1/3 lg:w-1/4 xl:w-1/5 bottom-0 h-full bg-gray-50 overflow-y-scroll self-stretch"
+            class="preview-controls absolute top-0 left-0 w-1/3 md:w-1/4 xl:w-1/5 bottom-0 h-full bg-gray-50 overflow-y-scroll self-stretch"
         >
             <div class="w-full py-5">
                 <div class="px-6 pt-8 pb-4 gap-2 flex flex-row items-center">
@@ -232,6 +232,20 @@ export default {
 <style>
 .w-screen {
     width: 100vw;
+}
+.w-1\/3 {
+    width: 33.3333%;
+}
+
+@media (min-width: 1024px){
+    .md\:w-1\/4{
+        width: 25%;
+    }
+}
+@media (min-width: 1600px){
+    .xl\:w-1\/5{
+        width: 20%;
+    }
 }
 
 .left-1\/2 {

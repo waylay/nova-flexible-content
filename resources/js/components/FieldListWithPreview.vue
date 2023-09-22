@@ -278,9 +278,6 @@ export default {
     padding-top: .5rem;
     padding-bottom: .5rem;
 }
-.fields label {
-    font-weight: bold;
-}
 
 .fields label .flex {
     flex-direction: column;

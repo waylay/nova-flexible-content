@@ -20,6 +20,7 @@
             dusk="toggle-layouts-dropdown-or-add-default"
             type="button"
             tabindex="0"
+            class="add-more-sections"
             ref="dropdownButton"
             @click="toggleLayoutsDropdownOrAddDefault"
             v-if="isBelowLayoutLimits"

@@ -15,8 +15,32 @@
                 'fixed inset-0 bg-gray-50 z-50 flex flex-col' : fullScreen
 
                 }">
-                <div v-if="fullScreen" class="px-4 py-2 z-20 bg-white border-b text-center">
-                    <button class="shadow relative bg-primary-500 hover:bg-primary-400 text-white dark:text-gray-900 cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-3" @click="selectGroup(null)">Exit full screen mode</button>
+                <div v-if="fullScreen" class="px-4 py-2 z-20 bg-white border-b text-center flex flex-wrap md:justify-end">
+                    <component
+                        :layouts="layouts"
+                        :is="currentField.menu.component"
+                        :field="currentField"
+                        :limit-counter="limitCounter"
+                        :limit-per-layout-counter="limitPerLayoutCounter"
+                        :errors="errors"
+                        :resource-name="resourceName"
+                        :resource-id="resourceId"
+                        @addGroup="addGroup($event)"
+                        :class="{'mx-0 ' : currentField.enablePreview , 'w-1/5' : currentField.enablePreview && fullScreen}"
+                    />
+
+                    <LoadingButton
+                        dusk="update-button"
+                        type="submit"
+                        :disabled="isWorking"
+                        align="center"
+                        :class="{'mx-2' : currentField.enablePreview , 'mx-2' : currentField.enablePreview && fullScreen}"
+                        :processing="wasSubmittedViaUpdateResource"
+                    >
+                        Update
+                    </LoadingButton>
+
+                    <button class="shadow relative bg-primary-600 hover:bg-primary-500 text-white dark:text-gray-900 cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4" @click="selectGroup(null)">Exit fullscreen</button>
                 </div>
                 <div ref="flexibleFieldContainer"
                 :class="{
@@ -46,6 +70,7 @@
                     />
                 </div>
 
+                <div :class="{'flex flex-wrap justify-start' : currentField.enablePreview, 'fixed z-50 border-t  bottom-0 bg-20 ml-sidebar p-2 border-l' : currentField.enablePreview && fullScreen}">
                 <component
                     :layouts="layouts"
                     :is="currentField.menu.component"
@@ -56,8 +81,21 @@
                     :resource-name="resourceName"
                     :resource-id="resourceId"
                     @addGroup="addGroup($event)"
-                    :class="{'px-8' : currentField.enablePreview , 'fixed z-50 border-t bg-100 ml-sidebar p-2 border-l' : currentField.enablePreview && fullScreen}"
+                    :class="{'mx-2 w-1/5' : currentField.enablePreview }"
                 />
+
+                <LoadingButton
+                    dusk="update-button"
+                    type="submit"
+                    :disabled="isWorking"
+                    align="center"
+                    :class="{'mx-0' : currentField.enablePreview , 'mx-2' : currentField.enablePreview && fullScreen}"
+                    :processing="wasSubmittedViaUpdateResource"
+                >
+                    Update
+                </LoadingButton>
+                </div>
+
             </div>
         </template>
     </component>

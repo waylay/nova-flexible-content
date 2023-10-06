@@ -1,6 +1,6 @@
 export default class Group {
 
-    constructor(name, title, fields, field, key, preview, collapsed = true) {
+    constructor(name, title, fields, field, key, preview, collapsed = true, limitGroup = '') {
         this.name = name;
         this.title = title;
         this.fields = fields;
@@ -8,6 +8,7 @@ export default class Group {
         this.preview = preview;
         this.collapsed = collapsed;
         this.readonly = field.readonly;
+        this.limitGroup = limitGroup;
 
         this.renameFields();
     }

@@ -12,7 +12,7 @@
 
             <div :class="{
                 '-mx-8 -mt-6' : currentField.enablePreview && !fullScreen,
-                'fixed inset-0 bg-gray-50 z-50 flex flex-col' : fullScreen
+                'fixed inset-0 bg-white z-50 flex flex-col' : fullScreen
 
                 }">
                 <div v-if="fullScreen" class="px-4 py-2 z-20 bg-white border-b text-center flex flex-wrap md:justify-end">
@@ -155,6 +155,10 @@ export default {
                 }
 
                 let count = Object.values(this.groups).filter(group => group.name === layout.name).length;
+
+                if (layout.limitGroup != null) {
+                    count += Object.values(this.groups).filter(group => group.limitGroup === layout.limitGroup).length;
+                }
 
                 layoutCounts[layout.name] = layout.limit - count;
 
@@ -317,7 +321,7 @@ export default {
             collapsed = collapsed || false;
 
             let fields = attributes || JSON.parse(JSON.stringify(layout.fields)),
-                group = new Group(layout.name, layout.title, fields, this.currentField, key, layout.preview, collapsed);
+                group = new Group(layout.name, layout.title, fields, this.currentField, key, layout.preview, collapsed, layout.limitGroup);
 
             this.groups[group.key] = group;
 

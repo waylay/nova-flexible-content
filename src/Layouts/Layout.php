@@ -98,6 +98,13 @@ class Layout implements LayoutInterface, JsonSerializable, ArrayAccess, Arrayabl
      */
     protected $limit;
 
+
+    /**
+     * The maximum amount of this layout type that can be added to this group
+     * Can be set in custom layouts
+     */
+    protected $limitGroup;
+
     /**
      * The parent model instance
      *
@@ -686,6 +693,7 @@ class Layout implements LayoutInterface, JsonSerializable, ArrayAccess, Arrayabl
             'title' => $this->title,
             'fields' => $this->fields->jsonSerialize(),
             'limit' => $this->limit,
+            'limitGroup' => $this->limitGroup,
             'preview' => $this->preview
         ];
     }

@@ -28,7 +28,10 @@
                 });
                 </script>
                 <script src='//unpkg.com/alpinejs' defer></script>
-                <script src='/js/themes/ebod.js' defer></script>
+                <script src='/js/themes/ebod.js'></script>
+                <script async defer
+                    src='https://maps.googleapis.com/maps/api/js?v=quarterly&key=AIzaSyBJuamKxSoKQFKo53-g6k_S06u5NTG80D4&callback=initMap'>
+                </script>
             </head>
             <body class='w-screen overflow-hidden'>
                 ${ initialPreviewHtml }

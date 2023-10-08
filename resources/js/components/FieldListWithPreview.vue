@@ -72,6 +72,7 @@
                             @input="onInput($event, item)"
                             @change="onInput($event, item)"
                             @click="onInput($event, item)"
+                            @focusout="onInput($event, item)"
                             :field="item"
                             :errors="errors"
                             :mode="mode"

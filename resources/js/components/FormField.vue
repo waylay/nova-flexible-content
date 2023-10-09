@@ -423,16 +423,19 @@ export default {
 <style>
 .ml-sidebar {
     margin-left: 33.333%;
+    width: 66.9999;
 }
 
 @media (min-width: 1024px){
     .ml-sidebar {
         margin-left: 25%;
+        width: 75%;
     }
 }
 @media (min-width: 1600px){
     .ml-sidebar {
         margin-left: 20%;
+        width: 80%;
     }
 }
 

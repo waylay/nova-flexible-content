@@ -70,7 +70,7 @@
                     />
                 </div>
 
-                <div :class="{'flex flex-wrap justify-start' : currentField.enablePreview, 'fixed z-50 border-t  bottom-0 bg-20 ml-sidebar p-2 border-l' : currentField.enablePreview && fullScreen}">
+                <div :class="{'flex flex-wrap justify-end px-4' : currentField.enablePreview, 'fixed z-50 border-t  bottom-0 bg-20 ml-sidebar p-2 border-l' : currentField.enablePreview && fullScreen}">
                 <component
                     :layouts="layouts"
                     :is="currentField.menu.component"
@@ -89,7 +89,7 @@
                     type="submit"
                     :disabled="isWorking"
                     align="center"
-                    :class="{'mx-0' : currentField.enablePreview , 'mx-2' : currentField.enablePreview && fullScreen}"
+                    :class="{'mx-2' : currentField.enablePreview , 'mx-2' : currentField.enablePreview && fullScreen}"
                     :processing="wasSubmittedViaUpdateResource"
                 >
                     Update

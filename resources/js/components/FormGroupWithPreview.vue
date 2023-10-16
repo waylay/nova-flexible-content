@@ -95,6 +95,8 @@
             :selectedGroup="selectedGroup"
             :title="group.title"
             @group-selected="$emit('group-selected', $el)"
+            class="outline-none"
+            tabindex="0" @keyup.escape="selectedGroup = null"
         />
     </div>
 </template>

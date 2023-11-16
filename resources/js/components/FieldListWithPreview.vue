@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
         <div
             @click="$emit('group-selected')"
             class="relative"
@@ -64,6 +64,7 @@
                     <fieldset ref="fieldset">
                         <component
                             v-for="(item, index) in stackedFields"
+
                             :key="index"
                             :is="'form-' + item.component"
                             :resource-name="resourceName"
@@ -94,6 +95,7 @@ import { tsImportEqualsDeclaration } from "@babel/types";
 import _, { map } from "underscore";
 import PreviewIframe from "./PreviewIframe";
 
+const watchedComponents = ['nova-file-manager-field'];
 export default {
     props: {
         layoutName: null,
@@ -115,6 +117,7 @@ export default {
     data() {
         return {
             form: new FormData(),
+            timer: null,
             initialPreviewHtml: null,
             updatedPreviewHtml: null,
             containsInvalidFormElements: false,
@@ -125,6 +128,8 @@ export default {
         stackedFields() {
             return this.fields.map((field) => {
                 field.stacked = true;
+
+
                 return field;
             });
         },
@@ -153,9 +158,12 @@ export default {
                         }
                     });
                 }
+
             });
             this.getPreview();
         });
+
+
     },
 
     watch: {
@@ -184,13 +192,28 @@ export default {
 
         onInput: _.debounce(function debounceRead(evt, updatedField) {
             this.update(updatedField);
-        }, 150),
+
+            if('tinymce-editor' === updatedField.component && typeof window.tinymce !== "undefined") {
+                window.tinymce.get(updatedField.attribute).on('input', (e) => this.update(updatedField));
+            }
+
+            // Some fields do not trigger an update event so we add a temporary watcher to check for updates
+            if(watchedComponents.includes(updatedField.component)) {
+                clearInterval(this.timer)
+                this.timer = setInterval(() => {
+                    this.update(updatedField);
+                }, 1500);
+            } else {
+                clearInterval(this.timer)
+                this.timer = null;
+            }
+
+        }, 120),
 
         update(updatedField) {
             let field = this.fields.find(
                 (field) => field.uniqueKey == updatedField.uniqueKey
             );
-
             this.form.delete(field.attribute);
             field.fill(this.form);
 
@@ -198,7 +221,6 @@ export default {
         },
 
         getPreview() {
-
             fetch(
                 `/nova-vendor/flexible/view/${this.resourceName}/${this.resourceId}/${this.fieldName}/${this.layoutName}`,
                 {
@@ -234,6 +256,10 @@ export default {
                     }
                 });
         },
+    },
+    beforeUnmount() {
+        clearInterval(this.timer)
+        this.timer = null;
     },
 };
 </script>

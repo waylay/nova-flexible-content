@@ -217,7 +217,6 @@ export default {
         setInitialValue() {
             this.value = this.currentField.value || [];
             this.files = {};
-
             this.populateGroups();
             this.$nextTick(this.initSortable.bind(this));
 
@@ -345,6 +344,7 @@ export default {
                     this.$refs.flexibleFieldContainer.lastElementChild.scrollIntoView({behavior: "smooth", block: "end", inline: "center"});
                 });
             }
+
         },
 
         getGroupKeyByName(groups, name) {

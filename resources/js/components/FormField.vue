@@ -10,12 +10,13 @@
         @keyup.escape="selectGroup(null)">
         <template #field>
 
-            <div :class="{
+            <div class="preview-panel" :class="{
                 '-mx-8 -mt-6' : currentField.enablePreview && !fullScreen,
-                'fixed inset-0 bg-white z-50 flex flex-col' : fullScreen
-
+                'fixed inset-0 bg-white z-50 flex flex-col' : fullScreen,
+                'mobile-view' : mobileView
                 }">
                 <div v-if="fullScreen" class="px-4 py-2 z-20 bg-white border-b text-center flex flex-wrap md:justify-end">
+
                     <component
                         :layouts="layouts"
                         :is="currentField.menu.component"
@@ -29,6 +30,17 @@
                         :class="{'mx-0 ' : currentField.enablePreview , 'w-1/5' : currentField.enablePreview && fullScreen}"
                     />
 
+
+                    <a class="shadow relative bg-primary-900 hover:bg-primary-900 text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 ml-2"
+                       @click="mobileView = !mobileView"
+                       :title="mobileView ? 'Switch to Desktop View' : 'Switch to Mobile View'"
+                    >
+                        <svg fill="transparent" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="20" height="20">
+                            <path v-if="!mobileView" stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"></path>
+                            <path v-if="mobileView" stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"></path>
+                        </svg>
+                    </a>
+
                     <LoadingButton
                         dusk="update-button"
                         type="submit"
@@ -40,7 +52,7 @@
                         Update
                     </LoadingButton>
 
-                    <button class="shadow relative bg-primary-600 hover:bg-primary-500 text-white dark:text-gray-900 cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4" @click="selectGroup(null)">Exit fullscreen</button>
+                    <button class="shadow relative bg-primary-600 hover:bg-primary-500 text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4" @click="selectGroup(null)">Exit fullscreen</button>
                 </div>
                 <div ref="flexibleFieldContainer"
                 :class="{
@@ -146,6 +158,7 @@ export default {
             return this.currentField.limit - Object.keys(this.groups).length;
         },
 
+
         limitPerLayoutCounter() {
             return this.layouts.reduce((layoutCounts, layout) => {
                 if (layout.limit === null) {
@@ -175,6 +188,7 @@ export default {
             sortableInstance: null,
             selectedGroupKey: null,
             fullScreen: false,
+            mobileView: false,
         };
     },
 
@@ -442,7 +456,6 @@ export default {
 .-mt-5 {
     margin-top: -1.25rem;
 }
-
 .-mt-6 {
     margin-top: -1.5rem;
 }
@@ -450,5 +463,20 @@ export default {
 .-mx-8 {
     margin-left: -2rem;
     margin-right: -2rem;
+}
+.mobile-view iframe {
+    max-width: 480px;
+}
+.preview-panel {
+    margin-top: -3rem;
+    padding-top: 3rem;
+    background-color: rgba(var(--colors-primary-800));
+}
+.preview-panel iframe{
+    background-color: white;
+    border: medium none;
+}
+:is(.dark .preview-panel .dark\:text-gray-900) {
+    color: white;
 }
 </style>

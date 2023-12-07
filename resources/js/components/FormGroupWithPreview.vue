@@ -96,6 +96,9 @@
             :title="group.title"
             @group-selected="$emit('group-selected', $el)"
             class="outline-none"
+            :class="{
+                'mt-6' : group.name == 'banner',
+            }"
             tabindex="0" @keyup.escape="selectedGroup = null"
         />
     </div>

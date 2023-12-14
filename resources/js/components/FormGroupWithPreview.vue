@@ -98,6 +98,7 @@
             class="outline-none"
             :class="{
                 'mt-6' : group.name == 'banner',
+                'mb-16' : group.name == 'footer',
             }"
             tabindex="0" @keyup.escape="selectedGroup = null"
         />
@@ -254,5 +255,8 @@ export default {
 
     .group:hover .group-hover\:block {
         display: block;
+    }
+    .mb-16 {
+        margin-bottom: 4rem;
     }
 </style>

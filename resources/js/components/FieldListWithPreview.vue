@@ -39,7 +39,7 @@
         </div>
         <div
             v-show="selectedGroup"
-            class="preview-controls absolute top-0 left-0 w-1/3 md:w-1/4 xl:w-1/5 bottom-0 h-full bg-gray-50 overflow-y-scroll self-stretch"
+            class="preview-controls absolute top-0 left-0 w-1/3 md:w-1/4 xl:w-1/5 bottom-0 h-full bg-gray-light overflow-y-scroll overflow-x-hidden self-stretch"
         >
             <div class="w-full py-5">
                 <div class="px-6 pt-8 pb-4 gap-2 flex flex-row items-center">

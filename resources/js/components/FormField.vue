@@ -52,7 +52,7 @@
                         Update
                     </LoadingButton>
 
-                    <button class="shadow relative bg-primary-600 hover:bg-primary-500 text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4" @click="selectGroup(null)">Exit fullscreen</button>
+                    <button class="shadow relative text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 exit-fullscreen" @click="selectGroup(null)">Exit fullscreen</button>
                 </div>
                 <div ref="flexibleFieldContainer"
                 :class="{
@@ -82,7 +82,11 @@
                     />
                 </div>
 
-                <div :class="{'flex flex-wrap justify-end px-4' : currentField.enablePreview, 'fixed z-50 border-t  bottom-0 bg-20 ml-sidebar p-2 border-l' : currentField.enablePreview && fullScreen}">
+                <div :class="{
+                    'flex flex-wrap justify-end px-4' : currentField.enablePreview,
+                    'fixed z-50 border-t  bottom-0 bg-20 ml-sidebar p-2 border-l' : currentField.enablePreview && fullScreen,
+                    'hidden' : currentField.enablePreview && !fullScreen,
+                }">
                 <component
                     :layouts="layouts"
                     :is="currentField.menu.component"
@@ -466,15 +470,18 @@ export default {
 }
 .mobile-view iframe {
     max-width: 480px;
+    background-color: white;
 }
 .preview-panel {
     margin-top: -3rem;
     padding-top: 3rem;
-    background-color: rgba(var(--colors-primary-800));
+    padding-bottom: 1rem;
 }
-.preview-panel iframe{
-    background-color: white;
-    border: medium none;
+.exit-fullscreen {
+    background-color: rgba(var(--colors-primary-green-dark));
+}
+.exit-fullscreen:hover {
+    background-color: rgba(var(--colors-primary-green));
 }
 :is(.dark .preview-panel .dark\:text-gray-900) {
     color: white;

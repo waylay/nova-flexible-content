@@ -84,7 +84,7 @@
 
                 <div :class="{
                     'flex flex-wrap justify-end px-4' : currentField.enablePreview,
-                    'fixed z-50 border-t  bottom-0 bg-20 ml-sidebar p-2 border-l' : currentField.enablePreview && fullScreen,
+                    'fixed z-50 border-t  bottom-0 bg-gray ml-sidebar p-2 border-l' : currentField.enablePreview && fullScreen,
                     'hidden' : currentField.enablePreview && !fullScreen,
                 }">
                 <component

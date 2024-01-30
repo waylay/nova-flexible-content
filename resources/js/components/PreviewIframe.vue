@@ -14,9 +14,6 @@
             <html>
             <head>
                 <base target='_blank' />
-                <link rel='preconnect' href='https://fonts.googleapis.com'>
-                <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
-                <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&family=Oswald:wght@400;600;700&family=Archivo:wght@400;600&display=swap' rel='stylesheet'>
                 <link rel='stylesheet' href='${stylesheet}' />
                 <script type='module'>
                 window.addEventListener('message', (event) => {
@@ -30,12 +27,9 @@
                     window.parent.postMessage('${flexible_key}', '*');
                 });
                 </script>
-                <script defer src='/js/themes/ebod.js'></script>
-<!--                <script async defer-->
-<!--                    src='https://maps.googleapis.com/maps/api/js?v=quarterly&key=AIzaSyBJuamKxSoKQFKo53-g6k_S06u5NTG80D4&callback=initMap'>-->
-<!--                </script>-->
+                <script src='${stylesheet.replace('style.css', 'scripts.js')}'></script>
             </head>
-            <body class='w-screen overflow-hidden'>
+            <body class='w-100 h-100 overflow-hidden'>
                 ${ initialPreviewHtml }
             </body>
             </html>`"

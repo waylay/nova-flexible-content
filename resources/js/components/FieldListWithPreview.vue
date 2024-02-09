@@ -42,7 +42,7 @@
             class="preview-controls absolute top-0 left-0 w-1/3 md:w-1/4 xl:w-1/5 bottom-0 h-full bg-gray-light overflow-y-scroll overflow-x-hidden self-stretch"
         >
             <div class="w-full py-5">
-                <div class="px-6 pt-8 pb-4 gap-2 flex flex-row items-center">
+                <div class="px-2 pt-8 pb-4 gap-2 flex flex-row items-center">
                     <button
                         :aria-label="`Close ${title}`"
                         @click.prevent="$emit('group-selected')"
@@ -54,7 +54,7 @@
                             height="36"
                         />
                     </button>
-                    <h3 class="font-semibold text-2xl ">{{ title }}</h3>
+                    <h3 class="font-bold text-2xl text-primary-400">{{ title }}</h3>
                 </div>
 
                 <div
@@ -158,6 +158,12 @@ export default {
                         }
                     });
                 }
+                if( field.sortableUriKey == 'promotion_type') {
+                    document.dispatchEvent(new CustomEvent("promotion_changed", {
+                        bubbles: true,
+                        detail: { text: () => this.form.get(field.attribute) },
+                    }));
+                }
 
             });
             this.getPreview();
@@ -216,6 +222,13 @@ export default {
             );
             this.form.delete(field.attribute);
             field.fill(this.form);
+
+            if( field.sortableUriKey == 'promotion_type') {
+                document.dispatchEvent(new CustomEvent("promotion_changed", {
+                    bubbles: true,
+                    detail: { text: () => this.form.get(field.attribute) },
+                }));
+            }
 
             this.getPreview();
         },
@@ -297,8 +310,8 @@ export default {
 
 .fields .md\:px-8,
 .fields .px-8 {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 .fields .md\:py-6,
 .fields .py-6 {

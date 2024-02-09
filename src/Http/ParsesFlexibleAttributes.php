@@ -66,6 +66,7 @@ trait ParsesFlexibleAttributes
      */
     protected function requestHasParsableFlexibleInputs(Request $request)
     {
+        
         // dependent field requests (PATCH only).
         if($request->method() === 'PATCH' && Str::contains($request->getRequestUri(), [
                 '/update-fields?',      // Laravel\Nova\Http\Controllers\UpdateFieldController

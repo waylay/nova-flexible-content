@@ -135,8 +135,12 @@ export default {
     components: { FullWidthField },
 
     computed: {
+
         dependentFieldValues() {
-            return this.watchedFields
+            return {
+                ...this.currentFieldValues,
+                ...this.watchedFields,
+            }
         },
 
         layouts() {

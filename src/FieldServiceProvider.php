@@ -33,7 +33,6 @@ class FieldServiceProvider extends ServiceProvider
             Nova::style('nova-flexible-content', __DIR__.'/../dist/css/field.css');
         });
 
-        $this->novaApiRouteOverwrite();
     }
 
     /**
@@ -89,9 +88,12 @@ class FieldServiceProvider extends ServiceProvider
             return;
         }
 
+
         Route::middleware(['nova'])
             ->prefix('nova-vendor/flexible')
             ->group(__DIR__.'/../routes/api.php');
+
+        $this->novaApiRouteOverwrite();
     }
 
 

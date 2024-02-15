@@ -15,7 +15,9 @@
                 'fixed inset-0 bg-white z-50 flex flex-col' : fullScreen,
                 'mobile-view' : mobileView
                 }">
-                <div v-if="fullScreen" class="px-4 py-2 z-20 bg-white border-b text-center flex flex-wrap md:justify-end">
+                <div v-if="fullScreen" class="px-4 py-2 z-20 bg-white border-b text-center flex flex-wrap md:justify-end preview-panel-fullscreen">
+
+                    <button class="shadow relative text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 exit-fullscreen" @click="selectGroup(null)">Exit Fullscreen</button>
 
                     <component
                         :layouts="layouts"
@@ -27,9 +29,8 @@
                         :resource-name="resourceName"
                         :resource-id="resourceId"
                         @addGroup="addGroup($event)"
-                        :class="{'mx-0 ' : currentField.enablePreview , 'w-1/5' : currentField.enablePreview && fullScreen}"
+                        :class="{'mx-0 ' : currentField.enablePreview , 'ml-2' : currentField.enablePreview && fullScreen}"
                     />
-
 
                     <a class="shadow relative bg-primary-900 hover:bg-primary-900 text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 ml-2"
                        @click="mobileView = !mobileView"
@@ -41,18 +42,20 @@
                         </svg>
                     </a>
 
+                    <a class="shadow relative text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 ml-2 exit-fullscreen" @click="visitSite">Visit Site</a>
+
                     <LoadingButton
                         dusk="update-button"
                         type="submit"
                         :disabled="isWorking"
                         align="center"
+                        class="bg-primary-400 hover:bg-primary-500"
                         :class="{'mx-2' : currentField.enablePreview , 'mx-2' : currentField.enablePreview && fullScreen}"
                         :processing="wasSubmittedViaUpdateResource"
                     >
-                        Update
+                        Publish
                     </LoadingButton>
 
-                    <button class="shadow relative text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 exit-fullscreen" @click="selectGroup(null)">Exit fullscreen</button>
                 </div>
                 <div ref="flexibleFieldContainer"
                 :class="{
@@ -329,6 +332,10 @@ export default {
             return this.layouts.find(layout => layout.name == name);
         },
 
+        visitSite() {
+            window.open(window.location.origin);
+        },
+
         /**
          * Append the given layout to flexible content's list
          */
@@ -477,8 +484,11 @@ export default {
     padding-top: 3rem;
     padding-bottom: 1rem;
 }
+.preview-panel-fullscreen {
+    background-color: rgba(var(--colors-primary-gray-purple));
+}
 .exit-fullscreen {
-    background-color: rgba(var(--colors-primary-green-dark));
+    background-color: rgba(var(--colors-primary-gray-dark));
 }
 .exit-fullscreen:hover {
     background-color: rgba(var(--colors-primary-green));

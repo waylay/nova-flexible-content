@@ -127,4 +127,10 @@
         top: auto;
         bottom: 100%;
     }
+    .add-more-sections {
+        background-color: rgba(var(--colors-primary-500));
+    }
+    .add-more-sections:hover {
+        background-color: rgba(var(--colors-primary-400));
+    }
 </style>

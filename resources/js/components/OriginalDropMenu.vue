@@ -10,7 +10,7 @@
                     <a
                         :dusk="'add-' + layout.name"
                         @click="addGroup(layout)"
-                        class="cursor-pointer flex items-center hover:bg-gray-50 dark:hover:bg-gray-900 block py-2 px-3 no-underline font-normal bg-white dark:bg-gray-800">
+                        class="cursor-pointer items-center bg-white hover:bg-primary-gray dark:hover:bg-primary-dark-gray block py-2 px-3 no-underline font-semibold text-md  dark:bg-gray-800">
                         <div><p class="text-90">{{ layout.title }}</p></div>
                     </a>
                 </li>
@@ -128,9 +128,13 @@
         bottom: 100%;
     }
     .add-more-sections {
-        background-color: rgba(var(--colors-primary-500));
+        background-color: rgba(var(--colors-primary-400));
     }
     .add-more-sections:hover {
-        background-color: rgba(var(--colors-primary-400));
+        background-color: rgba(var(--colors-primary-500));
+    }
+    .list-reset {
+        min-width: 230px;
+        text-align: center;
     }
 </style>

@@ -49,7 +49,7 @@
                         type="submit"
                         :disabled="isWorking"
                         align="center"
-                        class="bg-primary-400 hover:bg-primary-500"
+                        class="bg-primary-500 hover:bg-primary-400"
                         :class="{'mx-2' : currentField.enablePreview , 'mx-2' : currentField.enablePreview && fullScreen}"
                         :processing="wasSubmittedViaUpdateResource"
                     >

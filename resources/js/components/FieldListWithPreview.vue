@@ -54,7 +54,7 @@
                             height="36"
                         />
                     </button>
-                    <h3 class="font-bold text-2xl text-primary-400">{{ title }}</h3>
+                    <h3 class="font-bold text-2xl text-primary-500">{{ title }}</h3>
                 </div>
 
                 <div
@@ -64,7 +64,6 @@
                     <fieldset ref="fieldset">
                         <component
                             v-for="(item, index) in stackedFields"
-
                             :key="index"
                             :is="'form-' + item.component"
                             :resource-name="resourceName"

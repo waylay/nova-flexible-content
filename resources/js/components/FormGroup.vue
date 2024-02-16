@@ -24,8 +24,7 @@
                     </button>
 
                     <p class="text-80 grow px-4">
-                      <span class="mr-3 font-semibold">#{{ index + 1 }}</span>
-                      {{ group.title }}
+                      {{ group.title }} {{ index + 1 }}
                     </p>
 
                     <div class="flex" v-if="!readonly">

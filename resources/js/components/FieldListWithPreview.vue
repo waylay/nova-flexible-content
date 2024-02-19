@@ -94,7 +94,7 @@ import { tsImportEqualsDeclaration } from "@babel/types";
 import _, { map } from "underscore";
 import PreviewIframe from "./PreviewIframe";
 
-const watchedComponents = ['nova-file-manager-field'];
+const watchedComponents = ['nova-file-manager-field', 'tinymce-editor'];
 export default {
     props: {
         layoutName: null,

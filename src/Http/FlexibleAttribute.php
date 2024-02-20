@@ -29,13 +29,6 @@ class FlexibleAttribute
     const FILE_INDICATOR = '___upload-';
 
     /**
-     * Offset of a generated flexible part where the group
-     * separator (FlexibleAttribute::GROUP_SEPARATOR) starts at
-     * given position.
-     */
-    const FLEXIBLE_FIELD_OFFSET = 15;
-
-    /**
      * The original attribute name
      *
      * @var string
@@ -364,13 +357,4 @@ class FlexibleAttribute
         $this->name = $name;
     }
 
-    /**
-     * If field name starts with a generated flexible part.
-     * @param string $field
-     * @return bool
-     */
-    public static function hasFlexibleGeneratedPart(string $field) : bool {
-        return (strlen($field) >= self::FLEXIBLE_FIELD_OFFSET &&
-            strpos($field, self::GROUP_SEPARATOR, self::FLEXIBLE_FIELD_OFFSET) !== false);
-    }
 }

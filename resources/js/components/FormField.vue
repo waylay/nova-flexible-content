@@ -1,4 +1,20 @@
 <template>
+    <div class="p-3 text-right">
+        <a v-if="!fullScreen" class="shadow relative text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 ml-2 exit-fullscreen" @click="visitSite">Visit Site</a>
+        <LoadingButton
+            v-if="!fullScreen"
+            dusk="update-button"
+            type="submit"
+            :disabled="isWorking"
+            align="center"
+            class="ml-3"
+            :processing="wasSubmittedViaUpdateResource"
+        >
+            Update
+        </LoadingButton>
+    </div>
+
+
     <component
         :dusk="currentField.attribute"
         :is="currentField.fullWidth ? 'FullWidthField' : 'default-field'"
@@ -8,6 +24,7 @@
         full-width-content
         class="relative"
         @keyup.escape="selectGroup(null)">
+
         <template #field>
 
             <div class="preview-panel" :class="{
@@ -15,6 +32,7 @@
                 'fixed inset-0 bg-white z-50 flex flex-col' : fullScreen,
                 'mobile-view' : mobileView
                 }">
+
                 <div v-if="fullScreen" class="px-4 py-2 z-20 bg-white border-b text-center flex flex-wrap md:justify-end preview-panel-fullscreen">
 
                     <button class="shadow relative text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 exit-fullscreen" @click="selectGroup(null)">Exit Fullscreen</button>
@@ -139,22 +157,15 @@ export default {
 
     computed: {
 
-        dependentFieldValues() {
-            return {
-                ...this.currentFieldValues,
-                ...this.watchedFields,
-            }
-        },
-
         layouts() {
             return this.currentField.layouts || false
         },
 
         orderedGroups() {
-            return this.order.reduce((groups, key) => {
-                groups.push(this.groups[key]);
-                return groups;
-            }, []);
+           return this.order.reduce((groups, key) => {
+               groups.push(this.groups[key]);
+               return groups;
+           }, []);
         },
 
         limitCounter() {
@@ -189,6 +200,7 @@ export default {
 
     data() {
         return {
+            renderComponent: true,
             order: [],
             groups: {},
             files: {},
@@ -247,6 +259,7 @@ export default {
          * Fill the given FormData object with the field's internal value.
          */
         fill(formData) {
+
             let key, group;
 
             this.value = [];
@@ -307,6 +320,7 @@ export default {
          * Set the displayed layouts from the field's current value
          */
         populateGroups() {
+            this.order.splice(0, this.order.length);
             this.groups = {};
 
             for (var i = 0; i < this.value.length; i++) {
@@ -351,7 +365,6 @@ export default {
 
             this.order.push(group.key);
 
-
             let bannerKey = this.getGroupKeyByName(this.groups, 'banner') ?? '';
             let footerKey = this.getGroupKeyByName(this.groups, 'footer') ?? '';
 
@@ -384,8 +397,8 @@ export default {
             let index = this.order.indexOf(key);
 
             if(index <= 1) return;
-
             this.order.splice(index - 1, 0, this.order.splice(index, 1)[0]);
+
         },
 
         /**
@@ -397,6 +410,7 @@ export default {
             if(index < 0 || index >= this.order.length - 2) return;
 
             this.order.splice(index + 1, 0, this.order.splice(index, 1)[0]);
+
         },
 
         /**

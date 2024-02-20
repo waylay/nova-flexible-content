@@ -2,7 +2,6 @@
 
 namespace Whitecube\NovaFlexibleContent;
 
-use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
@@ -92,24 +91,6 @@ class FieldServiceProvider extends ServiceProvider
         Route::middleware(['nova'])
             ->prefix('nova-vendor/flexible')
             ->group(__DIR__.'/../routes/api.php');
-
-        $this->novaApiRouteOverwrite();
     }
 
-
-    /**
-     *
-     * @return void
-     */
-    protected function novaApiRouteOverwrite() {
-        Route::group([
-            'domain' => config('nova.domain', null),
-            'as' => 'nova.api.',
-            'prefix' => 'nova-api',
-            'middleware' => 'nova:api',
-            'excluded_middleware' => [SubstituteBindings::class],
-        ], function () {
-            $this->loadRoutesFrom(__DIR__.'/../routes/nova-api.php');
-        });
-    }
 }

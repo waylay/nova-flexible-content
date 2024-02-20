@@ -30,7 +30,7 @@
                 <script src='${stylesheet.replace('style.css', 'scripts.js')}'></script>
             </head>
             <body class='w-100 h-100 overflow-hidden'>
-                ${ initialPreviewHtml }
+                ${ updatedPreviewHtml ?? initialPreviewHtml }
             </body>
             </html>`"
         >
@@ -110,8 +110,9 @@ export default {
 
         setIframeHeight() {
                 this.iframeHeight =
-                    this.$refs.iframe.contentWindow.document.body.clientHeight;
-                this.iframeParentHeight =
+                    this.$refs.iframe.contentWindow.document.body.scrollHeight;
+
+            this.iframeParentHeight =
                     this.iframeHeight * this.scale;
         },
     },

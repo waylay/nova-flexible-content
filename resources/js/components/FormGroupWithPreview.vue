@@ -70,7 +70,7 @@
             <component
                 @click="($event) => {if(!selectedGroup && group.preview) {$emit('group-selected', $el)}}"
                 v-for="(item, index) in group.fields"
-                :key="index"
+                :key="group.key + '-' + index"
                 :is="'form-' + item.component"
                 :resource-name="resourceName"
                 :resource-id="resourceId"
@@ -92,6 +92,7 @@
             :errors="errors"
             :stylesheet="field.enablePreview"
             :flexible_key="group.key"
+            :key="group.key"
             :selectedGroup="selectedGroup"
             :title="group.title"
             @group-selected="$emit('group-selected', $el)"
@@ -182,6 +183,13 @@ export default {
         },
 
 
+    },
+
+
+    watch: {
+        index(index) {
+            this.$emit('addGroup', index);
+        }
     },
 }
 </script>

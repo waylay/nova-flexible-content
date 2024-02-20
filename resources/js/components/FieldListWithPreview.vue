@@ -72,7 +72,7 @@
                             @input="onInput($event, item)"
                             @change="onInput($event, item)"
                             @click="onInput($event, item)"
-                            @focusout="onInput($event, item)"
+
                             :field="item"
                             :errors="errors"
                             :mode="mode"
@@ -94,7 +94,8 @@ import { tsImportEqualsDeclaration } from "@babel/types";
 import _, { map } from "underscore";
 import PreviewIframe from "./PreviewIframe";
 
-const watchedComponents = ['nova-file-manager-field', 'tinymce-editor'];
+const watchedComponents = ['nova-file-manager-field'];
+
 export default {
     props: {
         layoutName: null,
@@ -212,6 +213,7 @@ export default {
                 clearInterval(this.timer)
                 this.timer = null;
             }
+
 
         }, 120),
 

@@ -1,4 +1,5 @@
 <template>
+
     <component
         :dusk="currentField.attribute"
         :is="currentField.fullWidth ? 'FullWidthField' : 'default-field'"
@@ -9,7 +10,20 @@
         class="relative"
         @keyup.escape="selectGroup(null)">
         <template #field>
-
+            <div class="p-3 text-right top-preview-buttons">
+                <a v-if="!fullScreen" class="shadow relative text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 ml-2 exit-fullscreen" @click="visitSite">Visit Site</a>
+                <LoadingButton
+                    v-if="!fullScreen"
+                    dusk="update-button"
+                    type="submit"
+                    :disabled="isWorking"
+                    align="center"
+                    class="ml-3"
+                    :processing="wasSubmittedViaUpdateResource"
+                >
+                    Update
+                </LoadingButton>
+            </div>
             <div class="preview-panel" :class="{
                 '-mx-8 -mt-6' : currentField.enablePreview && !fullScreen,
                 'fixed inset-0 bg-white z-50 flex flex-col' : fullScreen,

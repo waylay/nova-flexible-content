@@ -10,7 +10,7 @@
         class="relative"
         @keyup.escape="selectGroup(null)">
         <template #field>
-            <div class="p-3 text-right top-preview-buttons">
+            <div class="p-3 text-right top-preview-buttons d-none" v-if="currentField.enablePreview">
                 <a v-if="!fullScreen" class="shadow relative text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 ml-2 exit-fullscreen" @click="visitSite">Visit Site</a>
                 <LoadingButton
                     v-if="!fullScreen"

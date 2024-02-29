@@ -11,6 +11,7 @@
         @keyup.escape="selectGroup(null)">
         <template #field>
             <div class="p-3 text-right top-preview-buttons d-none" v-if="currentField.enablePreview">
+                <a v-if="!fullScreen" class="shadow relative text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 ml-2 change-status" @click="changeStatus">Change Status</a>
                 <a v-if="!fullScreen" class="shadow relative text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 ml-2 exit-fullscreen" @click="visitSite">Visit Site</a>
                 <LoadingButton
                     v-if="!fullScreen"
@@ -30,6 +31,8 @@
                 'mobile-view' : mobileView
                 }">
                 <div v-if="fullScreen" class="px-4 py-2 z-20 bg-white border-b text-center flex flex-wrap md:justify-end preview-panel-fullscreen">
+
+                    <a class="shadow relative text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 mr-3 change-status" @click="changeStatus">Change Status</a>
 
                     <button class="shadow relative text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 exit-fullscreen" @click="selectGroup(null)">Exit Fullscreen</button>
 
@@ -56,6 +59,7 @@
                         </svg>
                     </a>
 
+
                     <a class="shadow relative text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 ml-2 exit-fullscreen" @click="visitSite">Visit Site</a>
 
                     <LoadingButton
@@ -67,7 +71,7 @@
                         :class="{'mx-2' : currentField.enablePreview , 'mx-2' : currentField.enablePreview && fullScreen}"
                         :processing="wasSubmittedViaUpdateResource"
                     >
-                        Publish
+                        Update
                     </LoadingButton>
 
                 </div>
@@ -350,6 +354,13 @@ export default {
             window.open(window.location.origin);
         },
 
+        changeStatus() {
+            var parts = location.hostname.split('.');
+            var subdomain = parts.shift();
+            var upperleveldomain = parts.join('.');
+            window.open('https://' + upperleveldomain + '/admin/resources/sites', '_self');
+        },
+
         /**
          * Append the given layout to flexible content's list
          */
@@ -500,6 +511,12 @@ export default {
 }
 .preview-panel-fullscreen {
     background-color: rgba(var(--colors-primary-gray-purple));
+}
+.change-status {
+    background-color: rgba(var(--colors-primary-green-dark));
+}
+.change-status:hover {
+    background-color: rgba(var(--colors-primary-green));
 }
 .exit-fullscreen {
     background-color: rgba(var(--colors-primary-gray-dark));

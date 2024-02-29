@@ -224,6 +224,16 @@ export default {
         }
     },
 
+    watch: {
+        errors: function () {
+            if(this.errors.errors) {
+                this.fullScreen = false;
+                this.selectedGroupKey = null;
+            }
+
+        }
+    },
+
     methods: {
 
         /**
@@ -358,7 +368,7 @@ export default {
             var parts = location.hostname.split('.');
             var subdomain = parts.shift();
             var upperleveldomain = parts.join('.');
-            window.open('https://' + upperleveldomain + '/admin/resources/sites', '_self');
+            window.open('https://www.' + upperleveldomain + '/admin/resources/sites', '_self');
         },
 
         /**

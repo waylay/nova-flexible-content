@@ -74,7 +74,7 @@ class ViewController extends NovaActionController
         }
 
         return response()->json([
-            "view" => view("sites.templates." . $this->theme . ".blocks." . $layoutName, [
+            "view" => view("sites.templates." . $this->theme . ".components." . $layoutName, [
                 "layout" => (object) $layout,
             ])->render(),
 

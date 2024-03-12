@@ -226,9 +226,15 @@ export default {
 
     watch: {
         errors: function () {
-            if(this.errors.errors) {
+            // When we only have one error left and that's from the Media Campaign Go Live date, we close the editor and scroll the error into view
+            if(Object.keys(this.errors.errors).length == 1 && this.errors.errors['meta->media_campaign_go_live']) {
                 this.fullScreen = false;
                 this.selectedGroupKey = null;
+                document.documentElement.classList.remove('overflow-hidden');
+
+                this.$nextTick(() => {
+                    document.getElementsByClassName("custom-styles-panel-monster-media-campaign-info")[0].scrollIntoView({behavior: "smooth", block: "start", inline: "center"});
+                });
             }
 
         }

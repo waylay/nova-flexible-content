@@ -526,6 +526,7 @@ export default {
     padding-bottom: 1rem;
 }
 .preview-panel-fullscreen {
+    z-index: 21;
     background-color: rgba(var(--colors-primary-gray-purple));
 }
 .change-status {

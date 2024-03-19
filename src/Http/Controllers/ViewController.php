@@ -69,7 +69,7 @@ class ViewController extends NovaActionController
                 );
                 // $layout->setAttribute($key, $value);
             } else {
-                $layout->setAttribute($key, json_decode($value) ?? $value); // json_decode needed for simple repeater field
+                $layout->setAttribute($key, json_decode($value,true) ?? $value); // json_decode needed for simple repeater field
             }
         }
 

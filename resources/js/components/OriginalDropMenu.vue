@@ -2,7 +2,7 @@
     <div class="relative" v-if="filteredLayouts.length">
         <div v-if="isLayoutsDropdownOpen && layouts.length > 1"
                 ref="dropdown"
-                class="z-20 absolute rounded-lg shadow-lg max-w-full max-h-search overflow-y-auto border border-40"
+                class="z-20 absolute rounded-lg shadow-lg max-w-full list-reset max-h-search overflow-y-auto border border-40"
                 v-bind:class="dropdownClasses"
         >
             <ul class="list-reset">

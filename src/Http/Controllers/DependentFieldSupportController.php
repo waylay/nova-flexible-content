@@ -30,7 +30,7 @@ class DependentFieldSupportController extends Controller {
         // we only act on flexible fields concerning this package
         if(! FlexibleAttribute::hasFlexibleGeneratedPart($request->query('field'))) {
             // return native response
-            return App::makeWith(UpdateFieldController::class, [$request]);
+            return App::make(UpdateFieldController::class)->sync($request);
         }
 
         $resource = UpdateViewResource::make()->newResourceWith($request);
@@ -66,22 +66,25 @@ class DependentFieldSupportController extends Controller {
 
     protected function findFlexibleField($request, $resource) {
         return $resource->creationFields($request)
-            ->map(function($field) use ($resource) {
-                if($field instanceof Flexible) {
-                    $resolved = $field->jsonSerialize()['layouts']->map(function($layout) {
-                        return $layout->fields();
-                    })->flatten();
-
-                    return $resolved;
-                }
-                return $field;
-            })
+            ->map($this->recursiveUnfoldFlexible())
             ->flatten()
             ->filter(function ($field) use ($request) {
                 return $request->input('field') === $field->attribute &&
                     $request->input('component') === $field->dependentComponentKey();
             })->each->syncDependsOn($request)
             ->first();
+    }
+    
+    protected function recursiveUnfoldFlexible() {
+        return function($field) {
+            // we need to unpack each flexible layout
+            if($field instanceof Flexible) {
+                return $field->jsonSerialize()['layouts']->map(function($layout) {
+                    return collect($layout->fields())->map($this->recursiveUnfoldFlexible());
+                })->flatten();
+            }
+            return $field;
+        };
     }
 
 }

@@ -370,7 +370,9 @@ class FlexibleAttribute
      * @return bool
      */
     public static function hasFlexibleGeneratedPart(string $field) : bool {
+        /**
         return (strlen($field) >= self::FLEXIBLE_FIELD_OFFSET &&
-            strpos($field, self::GROUP_SEPARATOR, self::FLEXIBLE_FIELD_OFFSET) !== false);
+        strpos($field, self::GROUP_SEPARATOR, self::FLEXIBLE_FIELD_OFFSET) !== false); **/
+        return strpos($field, self::GROUP_SEPARATOR) !== false;
     }
 }

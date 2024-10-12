@@ -22,7 +22,7 @@
                 </a>
                 <a v-if="!fullScreen" class="shadow relative text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 ml-2 preview" @click="visitSite">Preview</a>
 
-                <LoadingButton
+                <DefaultButton
                     v-if="!fullScreen"
                     dusk="update-button"
                     type="submit"
@@ -32,7 +32,7 @@
                     :processing="wasSubmittedViaUpdateResource"
                 >
                     Update
-                </LoadingButton>
+                </DefaultButton>
             </div>
             <div class="preview-panel" :class="{
                 '-mx-8 -mt-6' : currentField.enablePreview && !fullScreen,
@@ -71,7 +71,7 @@
 
                     <a class="shadow relative text-white cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-4 ml-2 exit-fullscreen" @click="visitSite">Preview</a>
 
-                    <LoadingButton
+                    <DefaultButton
                         dusk="update-button"
                         type="submit"
                         :disabled="isWorking"
@@ -81,7 +81,7 @@
                         :processing="wasSubmittedViaUpdateResource"
                     >
                         Update
-                    </LoadingButton>
+                    </DefaultButton>
 
                 </div>
                 <div ref="flexibleFieldContainer"
@@ -130,7 +130,7 @@
                     :class="{'mx-2 w-1/5' : currentField.enablePreview }"
                 />
 
-                <LoadingButton
+                <DefaultButton
                     dusk="update-button"
                     type="submit"
                     :disabled="isWorking"
@@ -139,7 +139,7 @@
                     :processing="wasSubmittedViaUpdateResource"
                 >
                     Update
-                </LoadingButton>
+                </DefaultButton>
                 </div>
 
             </div>
@@ -543,21 +543,21 @@ export default {
 }
 .preview-panel-fullscreen {
     z-index: 21;
-    background-color: rgba(var(--colors-primary-gray-purple));
+    background-color: rgba(var(--colors-gray-400));
 }
 .change-status {
-    background-color: rgba(var(--colors-primary-green-dark));
+    background-color: rgba(var(--colors-green-600));
 }
 .change-status:hover {
-    background-color: rgba(var(--colors-primary-green));
+    background-color: rgba(var(--colors-green-400));
 }
 .exit-fullscreen,
 .preview {
-    background-color: rgba(var(--colors-primary-gray-dark));
+    background-color: rgba(var(--colors-gray-600));
 }
 .exit-fullscreen:hover,
 .preview:hover {
-    background-color: rgba(var(--colors-primary-green));
+    background-color: rgba(var(--colors-green-400));
 }
 :is(.dark .preview-panel .dark\:text-gray-900) {
     color: white;

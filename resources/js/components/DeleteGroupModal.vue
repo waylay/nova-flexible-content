@@ -28,7 +28,7 @@
             {{ no }}
           </link-button>
 
-          <danger-button
+          <default-button
             ref="confirmButton"
             dusk="confirm-delete-button"
             :processing="working"
@@ -36,7 +36,7 @@
             type="submit"
           >
             {{ yes }}
-          </danger-button>
+          </default-button>
         </div>
       </ModalFooter>
     </form>

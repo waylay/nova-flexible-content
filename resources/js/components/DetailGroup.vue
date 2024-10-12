@@ -1,9 +1,9 @@
 <template>
     <div v-if="!previewStylesheet" :class="componentStyle" :dusk="'detail-'+attribute+'-'+index">
         <div :class="titleStyle" v-if="group.title">
-            <span class="block float-left border-r border-gray-100 dark:border-gray-700  pr-4 mr-4"><!--
-             --><span class="text-60 text-xs">#</span><!--
-             --><span class="text-80">{{index+1}}</span>
+            <span class="block float-left border-r border-gray-100 dark:border-gray-700  pr-4 mr-4">
+                <span class="text-60 text-xs">#</span>
+                <!-- <span class="text-80">{{index+1}}</span> -->
             </span>
             <span class="font-bold">{{group.title}}</span>
         </div>

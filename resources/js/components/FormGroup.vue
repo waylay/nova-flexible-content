@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import BehavesAsPanel from 'nova-mixins/BehavesAsPanel';
+import BehavesAsPanel from '../mixins/BehavesAsPanel';
 import { mapProps } from 'laravel-nova';
 
 export default {
